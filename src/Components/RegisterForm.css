@@ -64,5 +64,9 @@ hr {
 }
 
 .error {
+    @apply text-vibrant-purple flex items-center ml-4;
+}
+
+.valid {
     @apply text-bright-blue flex items-center ml-4;
 }

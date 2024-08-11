@@ -2,18 +2,11 @@ import React from 'react'
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form'
 import './RegisterForm.css'
 import { FaCircleExclamation } from "react-icons/fa6";
+import { FaCheck } from 'react-icons/fa'
+import  PasswordInput from './PasswordInput'
+import { RegisterFormData } from '../Utility/interfaces';
 
 const RegisterForm: React.FC = () => {
-
-    interface FormData {
-        firstName: string;
-        lastName: string;
-        email: string;
-        phone: string;
-        address: string;
-        password: string;
-        confirmPassword: string;
-    }
 
     const requiredMsg = 'Required';
     const lengthMsg = 'Max length exceeded'
@@ -23,9 +16,9 @@ const RegisterForm: React.FC = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<FormData>();
+    } = useForm<RegisterFormData>();
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
+    const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
         console.log('Form submited:', data);
     }
 
@@ -129,24 +122,7 @@ const RegisterForm: React.FC = () => {
                     )}
                 </div>
 
-                <div className="input-box">
-                    <input
-                        type='password'
-                        placeholder='Password'
-                        {...register('password', {
-                            required: requiredMsg,
-                            pattern: {
-                                value: /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
-                                message: 'Passwords must contain at least 2 uppercase letters, 1 special character, 2 digits, 3 lowercase letters, and be a minimum of 8 characters long'
-                            }
-                        })}
-                    />
-                    {errors.password ? (
-                        <span className='error'><FaCircleExclamation />&nbsp;{errors.password.message}</span>
-                    ) : (
-                        <span className="valid">&nbsp;</span>
-                    )}
-                </div>
+                <PasswordInput className='input-box password-input' register={register} errors={errors}/>
 
                 <div className="input-box">
                     <input
@@ -160,7 +136,7 @@ const RegisterForm: React.FC = () => {
                     {errors.confirmPassword ? (
                         <span className='error'><FaCircleExclamation />&nbsp;{errors.confirmPassword.message}</span>
                     ): (
-                        <span className="valid">&nbsp;</span>
+                        <span className='valid'><FaCheck />&nbsp; Passwords match!</span>
                     )}
                 </div>
 

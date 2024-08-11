@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';;
+import React, { useEffect, useState } from 'react';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { RegisterFormData } from '../Utility/interfaces';
+import { FaCheck, FaTimes } from "react-icons/fa";
+import './PasswordInput.css'
 
-interface FormData {
-    password: string;
+
+interface PasswordInputProps {
+    className?: string,
+    register: UseFormRegister<RegisterFormData>;
+    errors: FieldErrors<RegisterFormData>;
 }
 
-interface PasswordValidationProps {
-    register: UseFormRegister<FormData>;
-    errors: FieldErrors<FormData>;
-}
-
-const PasswordValidation: React.FC<PasswordValidationProps> = ({ register, errors }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ className, register, errors }) => {
     const [password, setPassword] = useState<string>('');
+    const [allRequirementsMet, setAllRequirementsMet] = useState(false);
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
@@ -42,8 +44,13 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({ register, error
 
     const checkRequirement = (regex: RegExp): boolean => regex.test(password);
 
+    useEffect(() => {
+        const allMet = requirements.every((req) => checkRequirement(req.regex));
+        setAllRequirementsMet(allMet);
+      }, [password]);
+
     return (
-        <div>
+        <div className={className}>
             <input
                 type="password"
                 placeholder="Password"
@@ -58,15 +65,19 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({ register, error
                 onChange={handlePasswordChange}
             />
             {errors.password && <span className="error">{errors.password.message}</span>}
-            <ul className="password-requirements">
-                {requirements.map((req, index) => (
-                    <li key={index} className={checkRequirement(req.regex) ? 'valid' : 'invalid'}>
-                        {checkRequirement(req.regex) ? '✔️' : '❌'} {req.label}
-                    </li>
-                ))}
-            </ul>
+            {!allRequirementsMet ? (
+                <ul className="password-requirements">
+                    {requirements.map((req, index) => (
+                        <li key={index} className={`flex items-center ${checkRequirement(req.regex) ? 'valid' : 'error'}`}>
+                            {checkRequirement(req.regex) ? <FaCheck /> : <FaTimes />} {req.label}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <div className='flex items-center password-requirements'><span className='valid'><FaCheck />&nbsp;Password requirements met!</span></div>
+            )}
         </div>
     );
 };
 
-export default PasswordValidation;
+export default PasswordInput;
