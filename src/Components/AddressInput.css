@@ -1,0 +1,6 @@
+.address-suggestions {
+    height: 23px;
+    overflow-y: visible;
+    z-index: 1000;
+    opacity: 0;
+}

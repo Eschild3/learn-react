@@ -2,10 +2,10 @@ import React from 'react'
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form'
 import './RegisterForm.css'
 import { FaCircleExclamation } from "react-icons/fa6";
-import { FaCheck } from 'react-icons/fa'
-import  PasswordInput from './PasswordInput'
 import { RegisterFormData } from '../Utility/interfaces';
 import PhoneInput from './PhoneInput';
+import AddressInput from './AddressInput';
+import  PasswordInput from './PasswordInput'
 
 const RegisterForm: React.FC = () => {
 
@@ -91,7 +91,7 @@ const RegisterForm: React.FC = () => {
 
                 <PhoneInput className='input-box' register={register} errors={errors} />
 
-                <div className='input-box'>
+                {/* <div className='input-box'>
                     <input
                         type='text'
                         placeholder='Address'
@@ -104,7 +104,8 @@ const RegisterForm: React.FC = () => {
                     ) : (
                         <span className="valid">&nbsp;</span>
                     )}
-                </div>
+                </div> */}
+                <AddressInput className='input-box address-input' register={register} errors={errors}/>
 
                 <PasswordInput className='input-box password-input' register={register} errors={errors}/>
 

@@ -70,3 +70,8 @@ hr {
 .valid {
     @apply text-bright-blue flex items-center ml-4;
 }
+
+.address-input {
+    width: 100%;
+    overflow-y: visible;
+}
