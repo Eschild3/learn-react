@@ -1,0 +1,68 @@
+.wrapper {
+    @apply bg-cool-lavendar text-raisin-black;
+    width: 840px;
+    padding: 30px 40px;
+    border-radius: 40px;
+    /* background: transparent; border: 2px solid Orgba(255, 255, 255, .2);
+    backdrop-filter: blur (30px); box-shadow: 0 0 10px Orgba(255, 255, 255, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px; */
+}
+
+.wrapper h1 {
+    font-size: 36px;
+}
+
+.register-form {
+    @apply grid grid-cols-2 mt-4;
+}
+
+.register-header {
+    @apply col-span-2;
+}
+
+.input-box {
+    @apply p-2 flex flex-col;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    padding: 20px 45px 20px 20px;
+    @apply text-raisin-black;
+}
+
+.input-box input::placeholder {
+    @apply text-raisin-black;
+}
+
+.register-btn {
+    @apply col-span-2 px-28;
+}
+
+.register-btn button {
+    width: 100%;
+    height: 45px;
+    @apply bg-raisin-black text-cool-lavendar mt-4;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+hr {
+    @apply border-raisin-black;
+}
+
+.error {
+    @apply text-bright-blue flex items-center ml-4;
+}

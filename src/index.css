@@ -10,11 +10,8 @@ body {
     font-family: 'Poppins', 'sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    @apply bg-viridian
+    @apply bg-ice-blue grid
 }
 
 code {
