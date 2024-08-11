@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { RegisterFormData } from '../Utility/interfaces';
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCircleExclamation } from 'react-icons/fa6';
 import './PasswordInput.css'
 
 
@@ -47,7 +48,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ className, register, erro
     useEffect(() => {
         const allMet = requirements.every((req) => checkRequirement(req.regex));
         setAllRequirementsMet(allMet);
-      }, [password]);
+    }, [password]);
 
     return (
         <div className={className}>
@@ -55,7 +56,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ className, register, erro
                 type="password"
                 placeholder="Password"
                 {...register('password', {
-                    required: 'Password is required',
+                    required: 'Required',
                     pattern: {
                         value: /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
                         message: 'Password must meet complexity requirements',
@@ -64,18 +65,31 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ className, register, erro
                 value={password}
                 onChange={handlePasswordChange}
             />
-            {errors.password && <span className="error">{errors.password.message}</span>}
-            {!allRequirementsMet ? (
-                <ul className="password-requirements">
-                    {requirements.map((req, index) => (
-                        <li key={index} className={`flex items-center ${checkRequirement(req.regex) ? 'valid' : 'error'}`}>
-                            {checkRequirement(req.regex) ? <FaCheck /> : <FaTimes />} {req.label}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <div className='flex items-center password-requirements'><span className='valid'><FaCheck />&nbsp;Password requirements met!</span></div>
-            )}
+            <div className='errors-container'>
+                {/* If there are errors and the type is required */}
+                {errors.password && errors.password.type === 'required' ? (
+                        <span className="error"><FaCircleExclamation />&nbsp;{errors.password.message}</span>
+                    ) : //If there are errors and the type is pattern
+                    errors.password && errors.password.type === 'pattern' ? (
+                        //If all requirements are not met
+                        !allRequirementsMet ? (
+                            <ul className="password-requirements">
+                                {requirements.map((req, index) => (
+                                    <li key={index} className={`flex items-center ${checkRequirement(req.regex) ? 'valid' : 'error'}`}>
+                                        {checkRequirement(req.regex) ? <FaCheck /> : <FaTimes />} {req.label}
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            //If requirements have been met
+                            <div className='flex items-center password-requirements'><span className='valid'><FaCheck />&nbsp;Password requirements met!</span></div>
+                        )
+                    ) : // If there are no errors 
+                    (
+                        <span className='valid'>&nbsp;</span>
+                    )
+                }
+            </div>
         </div>
     );
 };

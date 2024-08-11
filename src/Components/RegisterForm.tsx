@@ -5,6 +5,7 @@ import { FaCircleExclamation } from "react-icons/fa6";
 import { FaCheck } from 'react-icons/fa'
 import  PasswordInput from './PasswordInput'
 import { RegisterFormData } from '../Utility/interfaces';
+import PhoneInput from './PhoneInput';
 
 const RegisterForm: React.FC = () => {
 
@@ -88,24 +89,7 @@ const RegisterForm: React.FC = () => {
                     )}
                 </div>
 
-                <div className='input-box'>
-                    <input
-                        type='text'
-                        placeholder='Phone'
-                        {...register('phone', {
-                            required: requiredMsg,
-                            pattern: {
-                                value: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
-                                message: 'Invalid phone number'
-                            }
-                        })}
-                    />
-                    {errors.phone ? (
-                        <span className='error'><FaCircleExclamation />&nbsp;{errors.phone.message}</span>
-                    ) : (
-                        <span className="valid">&nbsp;</span>
-                    )}
-                </div>
+                <PhoneInput className='input-box' register={register} errors={errors} />
 
                 <div className='input-box'>
                     <input
@@ -136,7 +120,7 @@ const RegisterForm: React.FC = () => {
                     {errors.confirmPassword ? (
                         <span className='error'><FaCircleExclamation />&nbsp;{errors.confirmPassword.message}</span>
                     ): (
-                        <span className='valid'><FaCheck />&nbsp; Passwords match!</span>
+                        <span className='valid'>&nbsp;</span>
                     )}
                 </div>
 
